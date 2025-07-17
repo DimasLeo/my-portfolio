@@ -1,0 +1,105 @@
+.contact-section-card {
+  background-color: #5c6653; /* sama dengan overlay-content warna */
+  color: #b99e72; /* warna teks senada */
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 2rem auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Judul dengan custom style untuk "Me" */
+.contact-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center; /* bikin center keseluruhan */
+  margin-bottom: 1.5rem;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  gap: 8px; /* jarak antar kata */
+}
+
+/* Form */
+.contact-form {
+  width: 100%;
+}
+
+/* Baris input atas (Name, Email, Subject) */
+.form-row.top-row {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input dan label */
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #d2b48c;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px 15px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #b99e72;
+  background-color: #b99e72;
+  color: #000000;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #d2b48c;
+  background-color: #d2b48c;
+  box-shadow: 0 0 8px #d2b48c;
+}
+
+/* Baris bawah (textarea full width) */
+.form-row.bottom-row {
+  margin-bottom: 2rem;
+}
+
+.form-group.full-width {
+  flex: 1 1 100%;
+}
+
+/* Button */
+.submit-btn {
+  background-color: #b99e72;
+  color: #5c6653;
+  padding: 14px 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.submit-btn:hover {
+  outline: none;
+  color: #76866e;
+  background-color: #d2b48c;
+  border-color: #d2b48c;
+  box-shadow: 0 0 8px #d2b48c;
+}
+
