@@ -4,9 +4,6 @@ import dynamic from 'next/dynamic';
 import GallerySection from '@/components/GallerySection';
 import ContactSection from '@/components/ContactSection';
 import ProjekSection from '@/components/ProjekSection';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 const WorldClock = dynamic(() => import('@/components/WorldClock'), { ssr: false });
 
