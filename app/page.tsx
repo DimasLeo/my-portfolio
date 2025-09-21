@@ -3,12 +3,16 @@ import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import GallerySection from '@/components/GallerySection';
 import ContactSection from '@/components/ContactSection';
+import ProjekSection from '@/components/ProjekSection';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const WorldClock = dynamic(() => import('@/components/WorldClock'), { ssr: false });
 
 const translations = {
   en: {
-    navItems: ["Home", "About", "Service", "Gallery", "Contact"],
+    navItems: ["Home", "About", "Service", 'Project', "Gallery", "Contact"],
     welcome: "Welcome!",
     iam: "I Am",
     sDesc: "Front-End Developer.",
@@ -38,7 +42,7 @@ const translations = {
     timeLabels: { am: "AM", pm: "PM" }
   },
   id: {
-    navItems: ["Beranda", "Tentang", "Layanan", "Sertifikat", "Kontak"],
+    navItems: ["Beranda", "Tentang", "Layanan", 'Proyek', "Sertifikat", "Kontak"],
     welcome: "Selamat datang!",
     iam: "Saya adalah",
     sDesc: "Front-End Developer.",
@@ -68,7 +72,7 @@ const translations = {
     timeLabels: { am: "AM", pm: "PM" }
   },
   jp: {
-    navItems: ["ホーム", "紹介", "サービス", "証明書", "連絡先"],
+    navItems: ["ホーム", "紹介", "サービス", 'プロジェクト', "証明書", "連絡先"],
     welcome: "ようこそ！",
     iam: "私は",
     sDesc: "フロントエンド開発者です。",
@@ -103,13 +107,35 @@ export default function HomePage() {
   const [language, setLanguage] = useState<'en' | 'id' | 'jp'>('en');
   const t = translations[language];
   const typedTexts = t.typedTexts;
-  const sectionIds = ['home', 'about', 'service', 'gallery', 'contact'];
+  const sectionIds = ['home', 'about', 'service', 'project', 'gallery', 'contact'];
 
   const [text, setText] = useState('');
   const [index, setIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const [prevScrollY, setPrevScrollY] = useState(0);
+  const [hideNavbar, setHideNavbar] = useState(false);
+
+  // Auto-hide navbar logic
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > prevScrollY && currentScrollY > 100) {
+        setHideNavbar(true); // scroll down
+      } else {
+        setHideNavbar(false); // scroll up
+      }
+
+      setPrevScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollY]);
+
+  // Reset typing animation when language changes
   useEffect(() => {
     setText('');
     setIndex(0);
@@ -117,6 +143,7 @@ export default function HomePage() {
     setIsDeleting(false);
   }, [language]);
 
+  // Typing animation logic
   useEffect(() => {
     const interval = setTimeout(() => {
       const current = typedTexts[index];
@@ -141,42 +168,58 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Navbar */}
-      <nav className="navbar navbar-expand-lg navbar-custom bg-dark fixed-navbar">
-        <div className="container d-flex justify-content-between align-items-center">
-          <div className="d-flex align-items-center gap-3">
-            <WorldClock language={language} />
-            <select
-              value={language}
-              onChange={(e) => setLanguage(e.target.value as 'en' | 'id' | 'jp')}
-              className="language-selector"
-            >
-              <option value="en">🇺🇸 English</option>
-              <option value="id">🇮🇩 Indonesia</option>
-              <option value="jp">🇯🇵 日本語</option>
-            </select>
-          </div>
-          <ul className="navbar-nav ms-auto d-flex flex-row gap-2">
-            {t.navItems.map((item, idx) => (
-              <li className="nav-item" style={{ fontSize: '22px' }} key={idx}>
-                <a href={`#${sectionIds[idx]}`} className="nav-link px-3">{item}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
+      <nav className={`navbar navbar-expand-lg navbar-custom fixed-navbar ${hideNavbar ? 'navbar-hidden' : ''}`}>
+        <div className="container">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
+          <div className="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+            <ul className="navbar-nav mx-auto gap-2 text-center">
+              {t.navItems.map((item, idx) => (
+                <li className="nav-item" style={{ fontSize: '22px' }} key={idx}>
+                  <a href={`#${sectionIds[idx]}`} className="nav-link px-3">
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+              {/* Language selector & clock - DIPINDAH KE SINI */}
+              <div className="mobile-only d-flex flex-column align-items-center mt-3 mt-lg-0">
+              <WorldClock language={language} />
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value as 'en' | 'id' | 'jp')}
+                className="language-selector mt-2"
+              >
+                <option value="en">🇺🇸 English</option>
+                <option value="id">🇮🇩 Indonesia</option>
+                <option value="jp">🇯🇵 日本語</option>
+              </select>
+            </div>
+            </div>
+          </div>
+        </nav>
       <main className="scroll-container">
         {/* Sosial Section */}
         <section id="home" className="container scroll-section text-light">
           <div className="row align-items-center">
-            <div className="col-md-6">
+            {/* TEKS */}
+            <div className="col-md-6 text-md-start text-center">
               <h5 className="welcome-text">{t.welcome}</h5>
               <h2 className="fw-bold mb-3">
                 {t.iam} <span className="typing-text">{text}</span>
               </h2>
               <p className="text-muted" style={{ fontSize: '30px' }}>{t.sDesc}</p>
-              <div className="d-flex gap-3">
+              <div className="d-flex gap-3 justify-content-md-start justify-content-center flex-wrap mt-3">
                 <a href="https://www.instagram.com/ka.zuxha" className="icon-circle"><i className="bi bi-instagram"></i></a>
                 <a href="https://x.com/Ka_zuxha" className="icon-circle"><i className="bi bi-twitter"></i></a>
                 <a href="https://github.com/DimasLeo" className="icon-circle"><i className="bi bi-github"></i></a>
@@ -185,31 +228,38 @@ export default function HomePage() {
                 <a href="https://open.spotify.com/user/31mixke3ecmdtosbxvjgcjbau2di?si=8ed937bdef874fa2" className="icon-circle"><i className="bi bi-spotify"></i></a>
               </div>
             </div>
-            <div className="col-md-6 d-flex justify-content-center align-items-center position-relative">
+
+            {/* GAMBAR */}
+            <div className="col-md-6 d-none d-sm-flex justify-content-center align-items-center position-relative">
               <div className="blob-bg"></div>
               <img src="/images/Foto1.png" alt="profile" className="profile-img position-relative" />
             </div>
           </div>
         </section>
-
         {/* About Section */}
         <section id="about" className="container-fluid about-section scroll-section text-light">
-          <div className="row align-items-center">
-            <div className="col-md-6 d-flex justify-content-center align-items-center order-md-1 order-2">
-              <div className="p-3 about-img-wrapper" style={{ backgroundColor: '#d2b48c' }}>
+          <div className="row justify-content-center">
+            <div className="col-md-8 text-center">
+              <h2 className="fw-bold mb-3">{t.aboutTitle}</h2>
+
+              {/* Gambar di bawah Heading */}
+              <div className="about-img-wrapper mx-auto mb-4 mt-3">
                 <img src="/images/Foto2.png" alt="profile" className="about-img" />
               </div>
-            </div>
-            <div className="col-md-6 order-md-2 order-1">
-              <h2 className="fw-bold mb-3">{t.aboutTitle}</h2>
-              <p className="text-muted" style={{ fontSize: '30px' }}>{t.aboutDesc}</p>
-              <ul className="list-unstyled text-muted" style={{ fontSize: '25px' }}>
+
+              {/* Deskripsi */}
+              <p className="about-desc mb-4">{t.aboutDesc}</p>
+
+              {/* Biodata */}
+              <ul className="list-unstyled about-biodata mb-4">
                 <li><strong>{t.labels.age}:</strong> {t.labels.bio?.age}</li>
                 <li><strong>{t.labels.address}:</strong> {t.labels.bio?.address}</li>
                 <li><strong>{t.labels.phone}:</strong> +62 858-7217-4625</li>
                 <li><strong>{t.labels.email}:</strong> dimasleo12345@gmail.com</li>
               </ul>
-              <a href="/cv.pdf" download className="custom-download-btn mt-3" style={{ color: '#121212', fontSize: '18px' }}>
+
+              {/* Tombol Download */}
+              <a href="/cv.pdf" download className="custom-download-btn">
                 {t.cvText}
               </a>
             </div>
@@ -240,10 +290,16 @@ export default function HomePage() {
           </div>
         </section>
 
+        <section id="project" className="scroll-section container">
+          <ProjekSection language={language} />
+        </section>
+
+        {/* Gallery Section */}        
         <section id="gallery" className="scroll-section container">
           <GallerySection language={language} />
         </section>
 
+        {/* Contact Section */}
         <section id="contact" className="scroll-section container">
           <ContactSection language={language} />
         </section>
