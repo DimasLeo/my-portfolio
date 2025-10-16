@@ -256,8 +256,12 @@ export default function HomePage() {
               </ul>
 
               {/* Tombol Download */}
-              <a href="/cv.pdf" download className="custom-download-btn">
-                {t.cvText}
+              <a
+                href="/CV_Dimas_Leo_Anuggrah .pdf"
+                download="CV_Dimas_Leo_Anuggrah.pdf"
+                className="custom-download-btn"
+              >
+                Download CV
               </a>
             </div>
           </div>
