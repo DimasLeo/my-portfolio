@@ -13,28 +13,30 @@ const translations = {
     title: 'My Project',
     projects: [
       {
-        title: 'Portfolio Website',
-        desc: 'A personal portfolio built with Next.js and Tailwind CSS.',
+        title: 'Game RPG ( IN PROGRESS )',
+        desc: 'A classic fantasy RPG set in a peaceful countryside with hidden mysteries.',
         images: [
-          '/images/Foto1.png',
-          '/images/project1-2.jpg',
-          '/images/project1-3.jpg',
+          '/images/Coming Soon.png',
         ],
       },
       {
-        title: 'E-commerce App',
-        desc: 'An online shop with user authentication and payment system.',
+        title: 'Project Skill Competency Test',
+        desc: 'A web-based point-of-sale application developed for the Uji Kompetensi Keahlian (UKK) project, featuring product management, transaction system, and two user roles: Admin and Cashier.',
         images: [
-          '/images/project2.jpg',
-          '/images/project2-2.jpg',
+          '/images/Ujikom admin (1).png',
+          '/images/Ujikom admin (2).png',
+          '/images/Ujikom admin (3).png',
+          '/images/Ujikom kasir (1).png',
+          '/images/Ujikom kasir (2).png',
+          '/images/Ujikom kasir (3).png',
+          '/images/login ujikom.png',
         ],
       },
       {
-        title: 'Skill Competency Test',
-        desc: 'A simple task management tool for daily planning.',
+        title: 'IRS Dashboard Web ( Internship )',
+        desc: 'A web dashboard application used to record and monitor transaction results',
         images: [
-          '/images/project3.jpg',
-          '/images/project3-2.jpg',
+          '/images/IRS DASHBOARD.png',
         ],
       },
     ],
@@ -43,28 +45,30 @@ const translations = {
     title: 'Projek Saya',
     projects: [
       {
-        title: 'Website Portofolio',
-        desc: 'Portofolio pribadi menggunakan Next.js dan Tailwind CSS.',
+        title: 'Game RPG ( Dalam Progres )',
+        desc: 'RPG fantasi klasik berlatar pedesaan yang damai dengan misteri tersembunyi.',
         images: [
-          '/images/project1.jpg',
-          '/images/project1-2.jpg',
-          '/images/project1-3.jpg',
-        ],
-      },
-      {
-        title: 'Aplikasi E-commerce',
-        desc: 'Toko online dengan autentikasi pengguna dan sistem pembayaran.',
-        images: [
-          '/images/project2.jpg',
-          '/images/project2-2.jpg',
+          '/images/Coming Soon.png',
         ],
       },
       {
         title: 'Uji Kompetensi Keahlian',
-        desc: 'Alat manajemen tugas sederhana untuk perencanaan harian.',
+        desc: 'Aplikasi kasir berbasis web yang dibuat untuk proyek Uji Kompetensi Keahlian (UKK), dilengkapi dengan fitur manajemen produk, sistem transaksi, dan dua role pengguna yaitu Admin dan Kasir.',
         images: [
-          '/images/project3.jpg',
-          '/images/project3-2.jpg',
+          '/images/Ujikom admin (1).png',
+          '/images/Ujikom admin (2).png',
+          '/images/Ujikom admin (3).png',
+          '/images/Ujikom kasir (1).png',
+          '/images/Ujikom kasir (2).png',
+          '/images/Ujikom kasir (3).png',
+          '/images/login ujikom.png',
+        ],
+      },
+      {
+        title: 'IRS Dashboard Web ( Magang )',
+        desc: 'Aplikasi dashboard web yang digunakan untuk mencatat dan memantau hasil transaksi.',
+        images: [
+          '/images/IRS DASHBOARD.png',
         ],
       },
     ],
@@ -73,28 +77,30 @@ const translations = {
     title: '私のプロジェクト',
     projects: [
       {
-        title: 'ポートフォリオサイト',
-        desc: 'Next.jsとTailwind CSSで作られた個人ポートフォリオ。',
+        title: 'RPGゲーム（進行中）',
+        desc: '隠された謎に満ちた静かな田舎を舞台にした古典的なファンタジー RPG。',
         images: [
-          '/images/project1.jpg',
-          '/images/project1-2.jpg',
-          '/images/project1-3.jpg',
+          '/images/Coming Soon.png',
         ],
       },
       {
-        title: 'Eコマースアプリ',
-        desc: 'ユーザー認証と決済機能を備えたオンラインショップ。',
+        title: 'スキル能力テスト',
+        desc: 'スキル能力テスト (UKK) プロジェクト用に作成された Web ベースのレジ アプリケーション。製品管理機能、トランザクション システム、および 2 つのユーザー ロール (管理者とレジ担当者) を備えています。',
         images: [
-          '/images/project2.jpg',
-          '/images/project2-2.jpg',
+          '/images/Ujikom admin (1).png',
+          '/images/Ujikom admin (2).png',
+          '/images/Ujikom admin (3).png',
+          '/images/Ujikom kasir (1).png',
+          '/images/Ujikom kasir (2).png',
+          '/images/Ujikom kasir (3).png',
+          '/images/login ujikom.png',
         ],
       },
       {
-        title: '宇治コンペティション・ケアリアン',
-        desc: '日々の計画のためのシンプルなタスク管理ツール。',
+        title: 'IRS ダッシュボード Web (インターンシップ)',
+        desc: 'トランザクション結果を記録および監視するために使用される Web ダッシュボード アプリケーション。',
         images: [
-          '/images/project3.jpg',
-          '/images/project3-2.jpg',
+          '/images/IRS DASHBOARD.png',
         ],
       },
     ],
@@ -134,7 +140,7 @@ export default function ProjekSection({ language }: ProjekSectionProps) {
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 1.2 }}
           >
             <div
               className="projek-image"
@@ -171,22 +177,23 @@ export default function ProjekSection({ language }: ProjekSectionProps) {
       </div>
 
       {galleryOpen && (
-      <div className="gallery-overlay" onClick={() => setGalleryOpen(false)}>
-        <div
-          className="gallery-content"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {galleryImages.map((src, index) => (
-            <img
-              key={index}
-              src={src}
-              alt={`Gallery ${index}`}
-              className="gallery-image"
-            />
-          ))}
-        </div>
-      </div>
-    )}
+  <div className="gallery-overlay" onClick={() => setGalleryOpen(false)}>
+    <div
+      className="gallery-content"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {galleryImages.map((src, index) => (
+        <img
+          key={index}
+          src={src}
+          alt={`Gallery ${index}`}
+          className="gallery-image-large"
+        />
+      ))}
+    </div>
+  </div>
+)}
+
     </section>
   );
 }

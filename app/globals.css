@@ -98,77 +98,134 @@ h2 {
   margin-right: auto;
 }
 
-/* ====== BURGER MENU RESPONSIVE ====== */
+/* ====== BURGER MENU RESPONSIVE (STICKY + SCROLL FIX) ====== */
 @media (max-width: 991.98px) {
   .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
+    z-index: 1000;
+    background: rgba(92, 102, 83, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(210, 180, 140, 0.3);
+transition: top 0.4s ease, opacity 0.3s ease;
   }
 
-  .navbar-collapse {
-    background-color: rgba(92, 102, 83, 0.95);
-    padding: 20px;
-    border-radius: 10px;
-    width: 100% !important;
-    max-width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+  /* Tombol burger */
+  .navbar-toggler {
+    background: transparent !important; /* hilangkan background hitam */
+    border: none !important;            /* hapus border */
+    box-shadow: none !important;        /* hilangkan efek bayangan */
+    outline: none !important;     
+  }
+
+  .navbar-toggler-icon,
+  .navbar-toggler-icon::before,
+  .navbar-toggler-icon::after {
+    content: "";
+    width: 26px;
+    height: 2px;
+    filter: none !important;        
+    background-color: #d2b48c;
+    display: block;
+    transition: all 0.4s ease;
+    border-radius: 2px;
+  }
+
+  .navbar-toggler-icon::before {
+    transform: translateY(-8px);
+  }
+
+  .navbar-toggler-icon::after {
+    transform: translateY(6px);
+  }
+
+  /* Animasi jadi X */
+  .navbar-toggler.active .navbar-toggler-icon {
+    background-color: transparent;
+  }
+
+  .navbar-toggler.active .navbar-toggler-icon::before {
+    transform: rotate(45deg);
+  }
+
+  .navbar-toggler.active .navbar-toggler-icon::after {
+    transform: rotate(-45deg);
+  }
+
+  /* Container menu overlay (biar nggak hilang pas scroll) */
+  .navbar-overlay {
+    position: fixed; /* FIX di sini 🔥 */
+    top: 70px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: rgba(92, 102, 83, 0.97);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(-15px);
+    pointer-events: none;
+    transition: all 0.4s ease;
+  }
+
+  .navbar-overlay.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 
   .navbar-nav {
-    flex-direction: column !important;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    width: 100%;
+    gap: 1.5rem;
+    padding: 2rem 0;
     margin: 0;
-    padding: 0;
   }
 
   .nav-link {
-    font-size: 20px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f5deb3;
     text-align: center;
-    width: 100%;
+    transition: color 0.3s ease, transform 0.3s ease;
   }
 
-  .welcome-text {
-    font-size: 30px;
-    text-align: center;
+  .nav-link:hover {
+    color: #fff;
+    transform: scale(1.05);
   }
 
-  h2 {
-    font-size: 30px;
-    margin: 0;
-    text-align: center;
-  }
-
-  /* Elemen khusus untuk mobile */
   .mobile-only {
     display: flex !important;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    margin-top: 1rem;
-    gap: 10px;
+    margin-top: 2rem;
+    gap: 12px;
   }
 
   .language-selector {
     font-size: 16px;
-    padding: 6px;
+    padding: 6px 12px;
     border-radius: 8px;
     width: 180px;
+    background-color: #d2b48c;
+    color: #333;
+    border: none;
     text-align: center;
   }
 
   .clock-glow {
     background-color: rgb(210, 180, 140);
-    backdrop-filter: blur(4px);
     font-size: 16px;
-    padding: 8px 12px;
+    padding: 8px 14px;
     border-radius: 10px;
     text-align: center;
+    font-weight: 500;
   }
 }
 
@@ -178,7 +235,7 @@ html, body {
   max-width: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* cegah geser horizontal */
+  overflow-x: hidden;
 }
 
 
